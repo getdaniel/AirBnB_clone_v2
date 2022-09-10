@@ -88,9 +88,9 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """ Creates a new instance of BaseModel, saves it."""
         try:
-            if not args:
+            if not arg:
                 raise SyntaxError()
-            my_list = args.split(" ")
+            my_list = arg.split(" ")
 
             kwargs = {}
             for index in range(1, len(my_list)):
