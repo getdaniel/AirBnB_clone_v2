@@ -70,7 +70,7 @@ class TestDBStorage(unittest.TestCase):
             del cls.review
             cls.storage._DBStorage__session.close()
             del cls.storage
-            
+
     def test_docstrings(self):
         """Check for docstrings."""
         self.assertIsNotNone(DBStorage.__doc__)
