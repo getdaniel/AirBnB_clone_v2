@@ -87,15 +87,33 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """ Creates a new instance of BaseModel, saves it."""
-        argl = parse(arg)
+        try:
+            if not args:
+                raise SyntaxError()
+            my_list = args.split(" ")
 
-        if len(argl) == 0:
+            kwargs = {}
+            for index in range(1, len(my_list)):
+                key, value = tuple(my_list[index].split("="))
+                if value[0] == '"':
+                    value = value.strip('"').replace("_", " ")
+                else:
+                    try:
+                        value = eval(value)
+                    except (SyntaxError, NameError):
+                        continue
+                kwargs[key] = value
+            if kwargs == {}:
+                obj = eval(my_list[0])()
+            else:
+                obj = eval(my_list[0])(**kwargs)
+                storage.new(obj)
+            print(obj.id)
+            obj.save()
+        except SyntaxError:
             print("** class name missing **")
-        elif argl[0] not in HBNBCommand.__classes:
+        except NameError:
             print("** class doesn't exist **")
-        else:
-            print(eval(argl[0])().id)
-            storage.save()
 
     def do_show(self, arg):
         """
