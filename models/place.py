@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 """ Defines class Place."""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
 
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     """
     Represents Place class.
 
@@ -20,7 +21,8 @@ class Place(BaseModel):
         longitude (float): The longitude of the place.
         amenity_ids (list): The id of the amenity object id.
     """
-    city_id = ""
+    __tablename__ = "places"
+    city_id = Column(String(60), nullable=False)
     user_id = ""
     name = ""
     description = ""
