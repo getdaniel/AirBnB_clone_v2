@@ -32,7 +32,7 @@ class FileStorage:
                 if type(value) == cls:
                     cls_dict[key] = value
             return cls_dict
-            
+
         return self.__objects
 
     def new(self, obj):
@@ -55,7 +55,7 @@ class FileStorage:
                     self.new(eval(name)(**o))
         except FileNotFoundError:
             pass
-    
+
     def delete(self, obj=None):
         """Delete obj from __objects if it’s inside - if obj is equal to None,
         The method should not do anything
