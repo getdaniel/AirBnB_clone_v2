@@ -2,6 +2,7 @@
 """ Inherits from BaseModel."""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):
@@ -14,9 +15,11 @@ class User(BaseModel, Base):
         password (sqlalchemy String): The user's password.
         first_name (sqlalchemy String): The user's first name.
         last_name (sqlalchemy String): The user's last name.
+        places (sqlalchemy relationship): The User-Place relationship.
     """
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
     first_name = Column(String(128))
     last_name = Column(String(128))
+    places = relationship("Place", backref="user", cascade="delete")
