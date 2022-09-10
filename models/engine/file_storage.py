@@ -37,27 +37,24 @@ class FileStorage:
 
     def new(self, obj):
         """ Sets in __objects the obj with key<obj class name>.id."""
-        obj_name = obj.__class__.__name__
-        FileStorage.__objects["{}.{}".format(obj_name, obj.id)] = obj
+        self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
     def save(self):
         """ Serializes __objects to the JSON file."""
-        obj_dict = FileStorage.__objects
-        objd = {obj: obj_dict[obj].to_dict() for obj in obj_dict.keys()}
-        with open(FileStorage.__file_path, "w") as myfile:
-            json.dump(objd, myfile)
+        odict = {o: self.__objects[o].to_dict() for o in self.__objects.keys()}
+        with open(self.__file_path, "w", encoding="utf-8") as myfile:
+            json.dump(odict, myfile)
 
     def reload(self):
         """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
-            with open(FileStorage.__file_path) as myfile:
-                objdict = json.load(myfile)
-                for o in objdict.values():
-                    cls_name = o["__class__"]
+            with open(self.__file_path, "r", encoding="utf-8") as myfile:
+                for o in json.load(myfile).values():
+                    name = o["__class__"]
                     del o["__class__"]
-                    self.new(eval(cls_name)(**o))
+                    self.new(eval(name)(**o))
         except FileNotFoundError:
-            return
+            pass
     
     def delete(self, obj=None):
         """Delete obj from __objects if it’s inside - if obj is equal to None,
@@ -67,3 +64,7 @@ class FileStorage:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):
             pass
+
+    def close(self):
+        """Call the reload method."""
+        self.reload()
