@@ -8,7 +8,6 @@ from sqlalchemy.orm import relationship
 class City(BaseModel, Base):
     """
     Represents class.
-
     Attributes:
         __tablename__ (str): The name of the MySQL table.
         state_id (str): The id of the state.

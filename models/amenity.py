@@ -8,7 +8,6 @@ from sqlalchemy.orm import relationship
 class Amenity(BaseModel):
     """
     Represents class State.
-
     Attributes:
         __tablename__ (str): The name of the MySQL table to store amenities.
         name (str): The name of the amenity object.
