@@ -66,3 +66,9 @@ class BaseModel:
         rdict.pop("_sa_instance_state", None)
 
         return rdict
+
+    def delete(self):
+        """ Delete the current instance from the storage (models.storage)
+        by calling the method delete
+        """
+        models.storage.delete(self)
