@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """ Inherits from BaseModel."""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """
     Defines class User.
 
