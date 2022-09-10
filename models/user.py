@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Inherits from BaseModel."""
 from models.base_model import BaseModel
+from sqlalchemy import Column, String
 
 
 class User(BaseModel):
@@ -8,12 +9,14 @@ class User(BaseModel):
     Defines class User.
 
     Attributes:
-        email (str): The email of the user.
-        password (str): The password of the user.
-        first_name (str): The first name of the user.
-        last_name (str): The last name of the user.
+        __tablename__ (str): The name of the MySQL table to store users.
+        email: (sqlalchemy String): The user's email address.
+        password (sqlalchemy String): The user's password.
+        first_name (sqlalchemy String): The user's first name.
+        last_name (sqlalchemy String): The user's last name.
     """
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+    __tablename__ = "users"
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128))
+    last_name = Column(String(128))
