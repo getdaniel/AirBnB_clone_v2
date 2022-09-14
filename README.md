@@ -60,4 +60,4 @@ $
 
 ## Authors :black_nib:
 * **Daniel Shibabaw** <[ShagizMan](https://github.com/ShagizMan)>
-* **Olyad Temesgen** <[OL_YAD](https://github.com/OL-YAD)>
+* **Olyad Temesgen** <[OL-YAD](https://github.com/OL-YAD)>
