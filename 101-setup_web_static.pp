@@ -1,80 +1,36 @@
 # Configures a web server for deployment of web_static.
 # Nginx configuration file
 
-package { 'nginx':
-  ensure   => 'present',
-  provider => 'apt'
-} ->
-
-file { '/data':
-  ensure  => 'directory'
-} ->
-
-file { '/data/web_static':
-  ensure => 'directory'
-} ->
-
-file { '/data/web_static/releases':
-  ensure => 'directory'
-} ->
-
-file { '/data/web_static/releases/test':
-  ensure => 'directory'
-} ->
-
-file { '/data/web_static/shared':
-  ensure => 'directory'
-} ->
-
-file { '/data/web_static/releases/test/index.html':
-  ensure  => 'present',
-  content => "<html>
- <head>
- </head>
- <body>
-   Holberton School
- </body>
-</html>"
-} ->
-
-file { '/data/web_static/current':
-  ensure => 'link',
-  target => '/data/web_static/releases/test'
-} ->
-
-exec { 'chown -R ubuntu:ubuntu /data/':
-  path => '/usr/bin/:/usr/local/bin/:/bin/'
+exec { 'apt-get-update':
+  command => '/usr/bin/env apt-get -y update',
 }
-
-file { '/var/www':
-  ensure => 'directory'
-} ->
-
-file { '/var/www/html':
-  ensure => 'directory'
-} ->
-
-file { '/var/www/html/index.html':
-  ensure  => 'present',
-  content => "<html>
+-> exec {'b':
+  command => '/usr/bin/env apt-get -y install nginx',
+}
+-> exec {'c':
+  command => '/usr/bin/env mkdir -p /data/web_static/releases/test/',
+}
+-> exec {'d':
+  command => '/usr/bin/env mkdir -p /data/web_static/shared/',
+}
+-> exec {'e':
+  command => '/usr/bin/env echo "<html>
  <head>
  </head>
  <body>
    Holberton School
  </body>
-</html>"
-} ->
-
-file { '/var/www/html/404.html':
-  ensure  => 'present',
-  content => "Ceci n'est pas une page\n"
-} ->
-
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'present',
-  content => $nginx_conf
-} ->
-
-exec { 'nginx restart':
-  path => '/etc/init.d/'
+</html>" > /data/web_static/releases/test/index.html',
+}
+-> exec {'f':
+  command => '/usr/bin/env ln -sf /data/web_static/releases/test /data/web_static/current',
+}
+-> exec {'h':
+  command => '/usr/bin/env sed -i "/listen 80 default_server/a location /hbnb_static/ { alias /data/web_static/current/;}" /etc/nginx/sites-available/default',
+}
+-> exec {'i':
+  command => '/usr/bin/env service nginx restart',
+}
+-> exec {'g':
+  command => '/usr/bin/env chown -R ubuntu:ubuntu /data',
 }
