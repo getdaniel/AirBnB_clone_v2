@@ -1,10 +1,10 @@
 # Configures a web server for deployment of web_static.
-
 # Nginx configuration file
+
 $nginx_conf = "server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    add_header X-Served-By ${HOSTNAME};
+    add_header X-Served-By $HOSTNAME;
     root   /var/www/html;
     index  index.html index.htm;
 
@@ -51,7 +51,13 @@ file { '/data/web_static/shared':
 
 file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
-  content => "Holberton School\n"
+  content => "<html>
+ <head>
+ </head>
+ <body>
+   Holberton School
+ </body>
+</html>"
 } ->
 
 file { '/data/web_static/current':
@@ -73,7 +79,13 @@ file { '/var/www/html':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => "Holberton School\n"
+  content => "<html>
+ <head>
+ </head>
+ <body>
+   Holberton School
+ </body>
+</html>"
 } ->
 
 file { '/var/www/html/404.html':
