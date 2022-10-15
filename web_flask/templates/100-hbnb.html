@@ -4,7 +4,6 @@
     <META charset="utf-8">
     <META name="viewport" content="width=device-width, initial-scale=1">
     <TITLE>HBnB</TITLE>
-    <LINK rel="stylesheet" href="../static/styles/reset.css">
     <LINK rel="stylesheet" href="../static/styles/103-common.css">
     <LINK rel="stylesheet" href="../static/styles/103-header.css">
     <LINK rel="stylesheet" href="../static/styles/103-footer.css">
@@ -90,7 +89,6 @@
               </UL>
               {% endfor %}
             </DIV>
-
             <DIV class="reviews">
               <H2>{{ place.reviews.__len__() }} Reviews</H2>
               {% for review in place.reviews %}
@@ -105,7 +103,6 @@
         </SECTION>
       </DIV>
     </MAIN>
-
     <FOOTER>
       Holberton School
     </FOOTER>

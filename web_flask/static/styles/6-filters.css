@@ -33,9 +33,9 @@
   /* Locations and amenities style */
   .filters .locations,
   .filters .amenities {
-    display: inline-block;
+   display: inline-block; 
     height: 100%;
-    position: relative;
+    position: relative; 
     width: 25%;
   }
   
@@ -71,6 +71,9 @@
    list-style-type: none;
    width: 100%;
    margin-top: 0;
+   max-height: 300px;
+   overflow-y: scroll;
+   height: fit-content;
  }
   
   /* Locations and amenities popover hover */
@@ -83,6 +86,7 @@
   .filters .locations ul {
     padding: 0 0 6px 0;
     margin: 0 0 6px -1px;
+    list-style-type: none;
   }
   
   /* Locations list element margin */
@@ -106,3 +110,7 @@
     font-weight: bold;
     margin: 12px auto 0 -18px;
   }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+.popover::-webkit-scrollbar {
+  display: none;
+}
