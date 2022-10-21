@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Defines unnittests for models/review.py."""
 import os
+import pep8
 import models
 import MySQLdb
 import unittest
@@ -71,6 +72,12 @@ class TestReview(unittest.TestCase):
         if type(models.storage) == DBStorage:
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
+
+    def test_pep8(self):
+        """Test pep8 styling."""
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(["models/review.py"])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
 
     def test_docstrings(self):
         """Check for docstrings."""

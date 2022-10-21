@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Defines unittests for console.py."""
 import os
+import pep8
 import unittest
 import models
 from unittest.mock import patch
@@ -53,6 +54,12 @@ class TestHBNBCommand(unittest.TestCase):
         except IOError:
             pass
 
+    def test_pep8(self):
+        """Test Pep8 styling."""
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(["console.py"])
+        self.assertEqual(p.total_errors, 0, "fix Pep8")
+
     def test_docstrings(self):
         """Check for docstrings."""
         self.assertIsNotNone(HBNBCommand.__doc__)
@@ -64,6 +71,7 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertIsNotNone(HBNBCommand.do_destroy.__doc__)
         self.assertIsNotNone(HBNBCommand.do_all.__doc__)
         self.assertIsNotNone(HBNBCommand.do_update.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_count.__doc__)
         self.assertIsNotNone(HBNBCommand.default.__doc__)
 
     def test_emptyline(self):
@@ -252,6 +260,9 @@ class TestHBNBCommand(unittest.TestCase):
     @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
     def test_z_count(self):
         """Test count command inpout"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.HBNB.onecmd("asdfsdfsd.count()")
+            self.assertEqual("0\n", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             self.HBNB.onecmd("State.count()")
             self.assertEqual("0\n", f.getvalue())

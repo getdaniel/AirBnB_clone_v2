@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines unnittests for models/engine/db_storage.py."""
+import pep8
 import models
 import MySQLdb
 import unittest
@@ -70,6 +71,12 @@ class TestDBStorage(unittest.TestCase):
             del cls.review
             cls.storage._DBStorage__session.close()
             del cls.storage
+
+    def test_pep8(self):
+        """Test pep8 styling."""
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/engine/db_storage.py'])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
 
     def test_docstrings(self):
         """Check for docstrings."""
